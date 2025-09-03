@@ -10,11 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.security.core.Authentication;
 import com.app.quizapplication.service.QuizUserDetailsService;
@@ -142,7 +138,7 @@ public class QuizController {
     }
 
     // Display the edit quiz page
-    @GetMapping("/editQuiz/{id}")
+    @PutMapping("/editQuiz/{id}")
     public String showEditQuizForm(@PathVariable("id") int id, Model model) {
         // Find the quiz by ID
         Quiz quiz = questionsService.getQuizById(id);
@@ -154,7 +150,7 @@ public class QuizController {
         return "editQuiz";
     }
 
-    @PostMapping("/editQuestion")
+    @PutMapping("/editQuestion")
     public String editQuestion(@ModelAttribute("quiz") Quiz quiz) {
         // Get the authenticated user's details
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -177,7 +173,7 @@ public class QuizController {
         }
     }
 
-    @GetMapping("/deleteQuiz/{id}")
+    @DeleteMapping("/deleteQuiz/{id}")
     public String deleteQuiz(@PathVariable("id") int id, Model model) {
         // Get the authenticated user's details
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
